@@ -99,4 +99,8 @@
 
   (testing "returns false when one or more points are duplicates"
     (is (= (valid-triangle? (Point 1 2) (Point 0 2) (Point 0 2))
+           false)))
+
+  (testing "returns false when no of points != 3"
+    (is (= (valid-triangle? (Point 1 2) (Point 0 2))
            false))))
