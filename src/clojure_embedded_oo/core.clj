@@ -41,5 +41,5 @@
 
 (def valid-triangle?
   (fn [& args]
-    (= (count args)
-       (count (distinct args)))))
+    (= args
+       (distinct args))))
