@@ -7,11 +7,12 @@
      :y y
      :__class_symbol__ 'Point}))
 
-;; The two below are equivalent
+;; The two definitions below are equivalent
 (def y (fn [this] (:y this)))
 (def x :x)
 
 (def class-of :__class_symbol__)
+
 (def shift
   (fn [this xinc yinc]
     (Point (+ (x this) xinc)
@@ -35,7 +36,12 @@
                                   (Point 0 10)
                                   (Point 10 0)))
 
-(def first-object (Point 3 2))
-(x first-object)
-(shift first-object -1 -200)
+(def add-no-shift
+  (fn [point1 point2]
+    (Point (+ (x point1) (x point2))
+           (+ (y point1) (y point2)))))
+
+(def add-with-shift
+  (fn [point1 point2]
+    (shift point1 (x point2) (y point2))))
 
