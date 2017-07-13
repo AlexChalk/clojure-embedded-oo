@@ -23,4 +23,8 @@
 
   (testing "reports right triangle is equal to equal-right-triangle"
     (is (= (equal-triangles? right-triangle equal-right-triangle)
-           true))))
+           true)))
+
+  (testing "reports right-triangle != different-triangle"
+    (is (= (equal-triangles? right-triangle different-triangle)
+           false))))
