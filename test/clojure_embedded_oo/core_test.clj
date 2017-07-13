@@ -19,4 +19,8 @@
 (deftest equal-triangles-test
   (testing "reports right triangle is equal to right triangle"
     (is (= (equal-triangles? right-triangle right-triangle)
+           true)))
+
+  (testing "reports right triangle is equal to equal-right-triangle"
+    (is (= (equal-triangles? right-triangle equal-right-triangle)
            true))))
