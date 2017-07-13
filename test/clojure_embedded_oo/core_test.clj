@@ -90,7 +90,7 @@
     (is (= (equal-triangles? right-triangle 
                              equal-right-triangle
                              different-triangle)
-         false))))
+           false))))
 
 (deftest valid-triangle-test
   (testing "returns true when no points are duplicates"
