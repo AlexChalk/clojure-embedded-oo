@@ -1,36 +1,5 @@
-# clojure-embedded-oo
+# Clojure-Embedded-OO
 
-FIXME: description
+An implementation of a basic object-oriented system in Clojure. 
 
-## Installation
-
-Download from http://example.com/FIXME.
-
-## Usage
-
-FIXME: explanation
-
-    $ java -jar clojure-embedded-oo-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2017 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+I am following a mixture of tutorials and exercises created by Brian Marick—they are available in his book [Functional Programming for the Object-Oriented Programmer](https://leanpub.com/fp-oo).
