@@ -49,3 +49,6 @@
   (fn [object & args]
     (apply object args)))
 
+(def equal-triangles?
+  (fn [triangle other]
+    (= triangle other)))

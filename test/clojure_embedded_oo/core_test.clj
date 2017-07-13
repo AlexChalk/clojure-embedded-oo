@@ -15,3 +15,8 @@
             :point1 {:__class_symbol__ 'Point :x 1 :y 2}
             :point2 {:__class_symbol__ 'Point :x 1 :y 3}
             :point3 {:__class_symbol__ 'Point :x 3 :y 1}}))))
+
+(deftest equal-triangles-test
+  (testing "reports right triangle is equal to right triangle"
+    (is (= (equal-triangles? right-triangle right-triangle)
+           true))))
