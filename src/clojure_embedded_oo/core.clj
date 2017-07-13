@@ -52,3 +52,8 @@
 (def equal-triangles?
   (fn [& args]
     (apply = args)))
+
+(def valid-triangle?
+  (fn [& args]
+    (= (count args)
+       (count (distinct args)))))

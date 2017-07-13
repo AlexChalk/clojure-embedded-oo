@@ -49,3 +49,12 @@
                              equal-right-triangle
                              different-triangle)
            false))))
+
+(deftest valid-triangle-test
+  (testing "returns true when no points are duplicates"
+    (is (= (valid-triangle? (Point 1 2) (Point 0 1) (Point 0 2))
+           true)))
+
+  (testing "returns false when one or more points are duplicates"
+    (is (= (valid-triangle? (Point 1 2) (Point 0 2) (Point 0 2))
+           false))))
