@@ -50,5 +50,5 @@
     (apply object args)))
 
 (def equal-triangles?
-  (fn [triangle other]
-    (= triangle other)))
+  (fn [& args]
+    (apply = args)))

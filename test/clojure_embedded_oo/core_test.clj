@@ -27,4 +27,10 @@
 
   (testing "reports right-triangle != different-triangle"
     (is (= (equal-triangles? right-triangle different-triangle)
+           false)))
+
+  (testing "correctly compares multiple triangles"
+    (is (= (equal-triangles? right-triangle 
+                             equal-right-triangle
+                             different-triangle)
            false))))
