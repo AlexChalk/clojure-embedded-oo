@@ -88,8 +88,8 @@
 
   (testing "correctly compares multiple triangles"
     (is (= (equal-triangles? right-triangle 
-                           equal-right-triangle
-                           different-triangle)
+                             equal-right-triangle
+                             different-triangle)
          false))))
 
 (deftest valid-triangle-test
