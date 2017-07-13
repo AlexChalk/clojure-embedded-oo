@@ -2,6 +2,16 @@
   (:require [clojure.test :refer :all]
             [clojure-embedded-oo.core :refer :all]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest make-test
+  (testing "make function can create a point"
+    (is (= (make Point 1 2)
+           {:x 1, :y 2, :__class_symbol__ 'Point})))
+
+  (testing "make function can create a triangle"
+    (is (= (make Triangle (make Point 1 2)
+                          (make Point 1 3)
+                          (make Point 3 1))
+           {:__class_symbol__ 'Triangle
+            :point1 {:__class_symbol__ 'Point :x 1 :y 2}
+            :point2 {:__class_symbol__ 'Point :x 1 :y 3}
+            :point3 {:__class_symbol__ 'Point :x 3 :y 1}}))))
