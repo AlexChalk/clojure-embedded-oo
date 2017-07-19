@@ -1,46 +1,30 @@
 (ns clojure-embedded-oo.core
   (:gen-class))
 
-(def Point
-  (fn [x y]
-    {:x x 
-     :y y
-     :__class_symbol__ 'Point}))
-
-(def y (fn [this] (:y this)))
-(def x :x)
-
-(def class-of :__class_symbol__)
-
-(def shift
-  (fn [this xinc yinc]
-    (Point (+ (x this) xinc)
-           (+ (y this) yinc))))
-
-(def Triangle
-  (fn [point1 point2 point3]
-    {:point1 point1, :point2 point2, :point3 point3
-     :__class_symbol__ 'Triangle}))
-
-(def add-no-shift
- (fn [point1 point2]
-   (Point (+ (x point1) (x point2))
-          (+ (y point1) (y point2)))))
-
-(def add-with-shift
-  (fn [point1 point2]
-    (shift point1 (x point2) (y point2))))
-
 (def make
   (fn [object & args]
     (apply object args)))
 
-(def equal-triangles?
-  (fn [& args]
-    (apply = args)))
+(def send-to
+  (fn [object message & args]
+    (apply (message (:__methods__ object)) object args)))
 
-(def valid-triangle?
-  (fn [& args]
-    (and 
-      (= 3 (count args))
-      (= args (distinct args)))))
+(def Point
+  (fn [x y]
+    {:x x 
+     :y y
+     :__class_symbol__ 'Point
+     :__methods__ {:class :__class_symbol__
+                   :get-x (fn [this]
+                            (:x this))
+                   :get-y (fn [this]
+                            (:y this))
+                   :shift (fn [this xinc yinc]
+                           (make Point (+ (send-to this :get-x) xinc)
+                                       (+ (send-to this :get-y) yinc)))
+                   :add (fn [this other_point]
+                          (send-to this :shift (send-to other_point :get-x)
+                                               (send-to other_point :get-y)))}})) 
+
+(def y (fn [this] (:y this)))
+(def x :x)
