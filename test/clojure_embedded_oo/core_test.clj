@@ -3,29 +3,29 @@
             [clojure-embedded-oo.core :refer :all]))
 
 (deftest x-test
-  (testing "returns x property"
-    (is (= (send-to (Point 1 2) :x)
-           1))))
+ (testing "returns x property"
+   (is (= (send-to (make Point 1 2) :x)
+          1))))
 
 (deftest y-test
   (testing "returns y property"
-    (is (= (send-to (Point 1 2) :y)
+    (is (= (send-to (make Point 1 2) :y)
            2))))
 
 (deftest class-of-test
   (testing "returns class"
-    (is (= (send-to (Point 1 2) :class)
+    (is (= (send-to (make Point 1 2) :class)
           'Point)))) 
 
 (deftest shift-test
   (testing "moves point designated distance"
-    (def point (send-to (Point 1 2) :shift 2 3))
+    (def point (send-to (make Point 1 2) :shift 2 3))
     (is (and (= 3 (send-to point :x))
              (= 5 (send-to point :y))))))
 
 (deftest add-test
   (testing "returns point that is sum of two arg points"
-    (def point2 (send-to (Point 1 2) :add (Point 3 5)))
+    (def point2 (send-to (make Point 1 2) :add (make Point 3 5)))
     (is (and (= 4 (send-to point2 :x))
              (= 7 (send-to point2 :y))))))
 

@@ -1,25 +1,36 @@
 (ns clojure-embedded-oo.core
-  (:gen-class))
+ (:gen-class))
 
 (def make
-  (fn [object & args]
-    (apply object args)))
-
+  (fn [class & args]
+    (let [allocated {}
+          seeded (assoc allocated
+                  :__class_symbol__ (:__own_symbol__ class))
+          constructor (:add-instance-values
+                        (:__instance_methods__ class))]
+        (apply constructor seeded args))))
+          
 (def send-to
-  (fn [object message & args]
-    (apply (message (:__methods__ object)) object args)))
+  (fn [instance message & args]
+    (let [class (eval (:__class_symbol__ instance))
+          method (message (:__instance_methods__ class))]
+      (apply method instance args))))
 
 (def Point
-  (fn [x y]
-    {:x x 
-     :y y
-     :__class_symbol__ 'Point
-     :__methods__ {:class :__class_symbol__
-                   :x :x
-                   :y :y
-                   :shift (fn [this xinc yinc]
-                           (make Point (+ (send-to this :x) xinc)
-                                       (+ (send-to this :y) yinc)))
-                   :add (fn [this other_point]
-                          (send-to this :shift (send-to other_point :x)
-                                               (send-to other_point :y)))}})) 
+  {
+   :__own_symbol__ 'Point
+   :__instance_methods__
+   {
+    :add-instance-values
+    (fn [this x y]
+      (assoc this :x x :y y))
+    :x :x
+    :y :y
+    :class :__class_symbol__
+    :shift (fn [this xinc yinc]
+             (make Point (+ (:x this) xinc)
+                         (+ (:y this) yinc)))
+    :add (fn [this other_point]
+           (send-to this :shift (send-to other_point :x)
+                                (send-to other_point :y)))}}) 
+
