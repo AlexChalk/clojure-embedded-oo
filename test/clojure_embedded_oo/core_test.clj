@@ -33,7 +33,12 @@
   (testing "send-to function calls an object method on object"
     (def point3 (make Point 1 2))
     (is (= (send-to point3 :x)
-           1))))
+           1)))
+
+  (testing "if function call is unknown, send-to will return any matching object attribute"
+    (def point4 (make Point 1 2))
+    (is (= (send-to point4 :__class_symbol__)
+         'Point))))
 
 (deftest make-test
   (testing "make function can create a point"

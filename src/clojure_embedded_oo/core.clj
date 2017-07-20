@@ -11,7 +11,8 @@
 
 (def apply-message-to
   (fn [class instance message args]
-    (apply (method-from-message message class)
+    (apply (or (method-from-message message class)
+               message)
            instance args)))
 
 (def make
@@ -34,6 +35,7 @@
       (assoc this :x x :y y))
     :x :x
     :y :y
+    :origin (fn [this] (make Point 0 0))
     :class-name :__class_symbol__
     :class (fn [this] (eval (:__class_symbol__ this)))
     :shift (fn [this xinc yinc]
