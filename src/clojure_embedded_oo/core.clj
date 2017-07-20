@@ -9,6 +9,10 @@
   (fn [instance]
     (eval (:__class_symbol__ instance))))
 
+(def class-instance-methods
+  (fn [class-symbol]
+    (:__instance_methods__ (eval class-symbol))))
+
 (def apply-message-to
   (fn [class instance message args]
     (apply (or (method-from-message message class)
@@ -28,6 +32,7 @@
 (def Point
   {
    :__own_symbol__ 'Point
+   :__superclass_symbol__ 'Anything
    :__instance_methods__
    {
     :add-instance-values
@@ -45,3 +50,12 @@
            (send-to this :shift (send-to other_point :x)
                                 (send-to other_point :y)))}}) 
 
+(def Anything
+  {
+   :__own_symbol__ 'Anything
+   :__instance_methods__
+   {
+    :add-instance-values identity
+
+    :class-name :__class_symbol__
+    :class (fn [this] (eval (:__class_symbol__ this)))}})
