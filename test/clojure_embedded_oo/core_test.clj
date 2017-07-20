@@ -12,9 +12,9 @@
     (is (= (send-to (make Point 1 2) :y)
            2))))
 
-(deftest class-of-test
+(deftest class-name-test
   (testing "returns class"
-    (is (= (send-to (make Point 1 2) :class)
+    (is (= (send-to (make Point 1 2) :class-name)
           'Point)))) 
 
 (deftest shift-test
@@ -37,5 +37,5 @@
 
 (deftest make-test
   (testing "make function can create a point"
-    (is (= (send-to (make Point 1 2) :class)
+    (is (= (send-to (make Point 1 2) :class-name)
            'Point))))

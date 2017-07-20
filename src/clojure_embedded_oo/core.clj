@@ -34,7 +34,8 @@
       (assoc this :x x :y y))
     :x :x
     :y :y
-    :class :__class_symbol__
+    :class-name :__class_symbol__
+    :class (fn [this] (eval (:__class_symbol__ this)))
     :shift (fn [this xinc yinc]
              (make Point (+ (:x this) xinc)
                          (+ (:y this) yinc)))
