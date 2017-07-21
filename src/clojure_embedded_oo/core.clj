@@ -1,10 +1,6 @@
 (ns clojure-embedded-oo.core
  (:gen-class))
 
-(def method-from-message
-  (fn [message class]
-    (message (:__instance_methods__ class))))
-
 (def class-from-instance
   (fn [instance]
     (eval (:__class_symbol__ instance))))
@@ -13,9 +9,31 @@
   (fn [class-symbol]
     (:__instance_methods__ (eval class-symbol))))
 
+(def class-symbol-above
+  (fn [class-symbol]
+    (assert (symbol? class-symbol))
+    (:__superclass_symbol__ (eval class-symbol))))
+
+(def lineage-1
+  (fn [class-symbol so-far]
+    (if (nil? class-symbol)
+      so-far
+      (lineage-1 (class-symbol-above class-symbol)
+                 (cons class-symbol so-far)))))
+(def lineage
+  (fn [class-symbol]
+    (lineage-1 class-symbol [])))
+
+(def method-cache
+  (fn [class]
+    (let [class-symbol (:__own_symbol__ class)
+          method-maps (map class-instance-methods
+                           (lineage class-symbol))]
+      (apply merge method-maps))))
+
 (def apply-message-to
   (fn [class instance message args]
-    (apply (or (method-from-message message class)
+    (apply (or (message (method-cache class))
                message)
            instance args)))
 
@@ -56,6 +74,7 @@
    :__instance_methods__
    {
     :add-instance-values identity
-
+    :hey-class-symbol-please :__class_symbol__
     :class-name :__class_symbol__
     :class (fn [this] (eval (:__class_symbol__ this)))}})
+

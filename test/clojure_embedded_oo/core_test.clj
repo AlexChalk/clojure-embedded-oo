@@ -38,7 +38,12 @@
   (testing "if function call is unknown, send-to will return any matching object attribute"
     (def point4 (make Point 1 2))
     (is (= (send-to point4 :__class_symbol__)
-         'Point))))
+         'Point)))
+
+  (testing "it knows about superclass methods"
+    (def point5 (make Point 1 2))
+    (is (= (send-to point5 :hey-class-symbol-please)
+           'Point))))
 
 (deftest make-test
   (testing "make function can create a point"
